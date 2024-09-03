@@ -14,7 +14,7 @@ try:
 
     db_cursor = db_conn.cursor()
     if option == 1:
-        db_cursor.execute(f"SELECT jsustamp, titulo, javascript FROM jsu WHERE titulo='{scriptTitle}'")
+        db_cursor.execute(f"SELECT jsustamp, titulo, javascript FROM jsu WHERE titulo = ? ", (scriptTitle))
     else:
         db_cursor.execute("SELECT jsustamp, titulo, javascript FROM jsu")
 
