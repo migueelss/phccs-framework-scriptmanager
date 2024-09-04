@@ -1,16 +1,21 @@
 import os
 import pyodbc # type: ignore
 import configparser
+import requests
+from requests.auth import HTTPBasicAuth
 
 config = configparser.ConfigParser()
 config.read('config.cfg')
 
+web_host = config['web']['host']
+
 # Database Connection Data
 db_database = config['database']['db']
-db_host = config['database']['host']
+db_host = config['database']['dbhost']
 db_port = config.getint('database', 'port')
 db_user = config['database']['user']
 db_userPassword = config['database']['password']
+
 
 db_connString = (
     "DRIVER={ODBC Driver 17 for SQL Server};"
