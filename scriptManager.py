@@ -5,8 +5,6 @@ import configparser
 config = configparser.ConfigParser()
 config.read('config.cfg')
 
-web_host = config['web']['host']
-
 # Database Connection Data
 db_database = config['database']['db']
 db_host = config['database']['dbhost']

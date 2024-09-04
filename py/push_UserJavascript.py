@@ -50,13 +50,11 @@ def pushAll(cursor, conn):
 
 db_conn = pyodbc.connect(db_connString)
 
-phc_updateScriptRoute = f"http://{web_host}/Intranet/ws/wsgeral.asmx/js"
-
-
 os.system('cls') 
 print("==== Push Javascript de Utilizador")
 print("\n1 - Push Single File")
 print(f"\n2 - Push All Files from /jsUtilizador/")
+print(f"\n0 - Go Back")
 
 option = int(input('\n'))
 
@@ -81,4 +79,5 @@ finally:
         db_cursor.close()
     if db_conn:
         db_conn.close()
-    input('\nPress ENTER to continue...')
+    if option == 1 or option == 2:
+        input('\nPress ENTER to continue...')
