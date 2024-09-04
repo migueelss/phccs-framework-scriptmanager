@@ -1,8 +1,6 @@
 import os
 import pyodbc # type: ignore
 import configparser
-import requests
-from requests.auth import HTTPBasicAuth
 
 config = configparser.ConfigParser()
 config.read('config.cfg')
