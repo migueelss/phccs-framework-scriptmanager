@@ -19,6 +19,35 @@ def pushSingle(title, cursor, conn):
     else:
         print('Folder not found.')
 
+def pushAll(cursor, conn):
+    filesToPush = []
+    os.system('cls') 
+    if os.path.isdir(f'../jsUtilizador/'):
+        print(f'Folder /jsUtilizador/ found!')
+        
+        for folder_name in os.listdir('../jsUtilizador'):
+            folder_path = os.path.join('../jsUtilizador', folder_name)
+
+            if os.path.isdir(folder_path):
+                folder_files = os.listdir(folder_path)
+
+                if len(folder_files) == 1:
+                    print(f"Found Javascript de Utilizador: '{folder_name}'")
+                    file_path = os.path.join(folder_path, folder_files[0])
+                    filesToPush.append(file_path)
+                else:
+                    print(f"Expected 1 file in '{folder_name}' but found {len(folder_files)}")
+
+        for pushFile in filesToPush:
+            with open(pushFile) as pushScript:
+                pushScriptJavascript = pushScript.read()
+                pushScriptStamp = os.path.basename(pushFile).rstrip('.js')
+                cursor.execute(f"UPDATE JSU SET JAVASCRIPT = ?, usrdata=DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()) + 1, 0), usrhora=CONVERT(TIME, GETDATE()) WHERE jsustamp = ?", (pushScriptJavascript, pushScriptStamp))
+                conn.commit()
+                  
+    else:
+        print(f"Couldn't find any Javascript de Utilizador!")
+
 db_conn = pyodbc.connect(db_connString)
 
 phc_updateScriptRoute = f"http://{web_host}/Intranet/ws/wsgeral.asmx/js"
@@ -39,6 +68,10 @@ try:
 
     if option == 1:
         pushSingle(scriptTitle, db_cursor, db_conn)
+    elif option == 2:
+        pushAll(db_cursor, db_conn)
+    else:
+        pass
 
 except pyodbc.Error as e:
     print(f"SQL Server Error: {e}")
