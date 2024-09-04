@@ -27,6 +27,7 @@ def scriptManager():
         print("=== Script Manager PHC Framework 0.1.0")
         print("\n1 - Pull Javascript de Utilizador")
         print("\n2 - Push Javascript de Utilizador")
+        print("\n0 - Quit")
 
         option = int(input('\n'))
 
