@@ -27,6 +27,8 @@ def scriptManager():
         print("=== Script Manager PHC Framework 0.1.0")
         print("\n1 - Pull Javascript de Utilizador")
         print("\n2 - Push Javascript de Utilizador")
+        print("\n\n3 - Pull Scripts Web (VB.NET)")
+        print("\n4 - Push Scripts Web (VB.NET)")
         print("\n0 - Quit")
 
         option = int(input('\n'))
@@ -36,6 +38,12 @@ def scriptManager():
                 exec(script.read())
         elif option == 2:
             with open('./py/push_UserJavascript.py') as script:
+                exec(script.read())
+        elif option == 3:
+            with open ('./py/pull_WebScripts.py') as script:
+                exec(script.read())
+        elif option == 4:
+            with open ('./py/push_WebScripts.py') as script:
                 exec(script.read())
         elif option == 0:
             break
