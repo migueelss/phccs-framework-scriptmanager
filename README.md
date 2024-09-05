@@ -59,7 +59,7 @@ Em ambas as opções (Pull e Push) do Javascript de Utilizador, existem 2 funç�
 
 #### 📥 Pull dos Javascripts de Utilizador
 
-Ao receber os Javascripts de Utilizador, os mesmos serão guardados numa pasta fora do diretório do scriptManager, chamada **"jsUtilizador/", onde o nome dos sub-diretórios será a descrição do script e o conteúdo será o `{stamp}.js`.
+Ao receber os Javascripts de Utilizador, os mesmos serão guardados numa pasta fora do diretório do scriptManager, chamada **"jsUtilizador/"**, onde o nome dos sub-diretórios será a descrição do script e o conteúdo será o `{stamp}.js`.
 ```
 phcDevelopment/
 |
@@ -94,7 +94,7 @@ Em ambas as opções (Pull e Push) dos Scripts, existem 2 funções: fazer o ped
 
 #### 📥 Pull dos Scripts Web (VB.NET)
 
-Ao receber os Scripts, os mesmos serão guardados numa pasta fora do diretório do scriptManager, chamada **"webScriptsVB/", onde o nome dos sub-diretórios será o código do Script e o conteúdo será o `{stamp}.vb`.
+Ao receber os Scripts, os mesmos serão guardados numa pasta fora do diretório do scriptManager, chamada "**"webScriptsVB/**", onde o nome dos sub-diretórios será o código do Script e o conteúdo será o `{stamp}.vb`.
 ```
 phcDevelopment/
 |
