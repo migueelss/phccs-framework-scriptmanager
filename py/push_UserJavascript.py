@@ -1,52 +1,41 @@
-def pushSingle(title, cursor, conn):
-    if os.path.isdir(f'../jsUtilizador/{title}/'):
-        print(f'Folder /jsUtilizador/{title}/ found!')
+def push_files(cursor, conn, title):
+    def process_file(file_path):
+        with open(file_path) as pushScript:
+            pushScriptJavascript = pushScript.read()
+            pushScriptStamp = os.path.basename(file_path).rstrip('.js')
+            cursor.execute(f"UPDATE JSU SET JAVASCRIPT = ?, usrdata=DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()) + 1, 0), usrhora=CONVERT(TIME, GETDATE()) WHERE jsustamp = ?", (pushScriptJavascript, pushScriptStamp))
+            conn.commit()
 
-        files = [item for item in os.listdir(f'../jsUtilizador/{title}')
-                 if os.path.isfile(os.path.join(f'../jsUtilizador/{title}', item))]
+    os.system('cls')
 
-        if len(files) == 1:
-            with open(f"../jsUtilizador/{title}/{files[0]}") as pushScript:
-                pushScriptJavascript = pushScript.read()
-                cursor.execute(f"UPDATE JSU SET JAVASCRIPT = ?, usrdata=DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()) + 1, 0), usrhora=CONVERT(TIME, GETDATE()) WHERE jsustamp = ?", (pushScriptJavascript, files[0].rstrip('.js')))
-                conn.commit()
-                   
-        elif len(files) == 0:
-            print("No files found...")
+    if title:
+        folder_path = f'../jsUtilizador/{title}/'
+        if os.path.isdir(folder_path):
+            print(f'Folder {folder_path} found!')
+            files = [item for item in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, item))]
+            if len(files) == 1:
+                process_file(os.path.join(folder_path, files[0]))
+            elif len(files) == 0:
+                print("No files found...")
+            else:
+                print("More than one file found, expecting a single one.")
         else:
-            print("More than one file found, expecting a single one.")
-
+            print('Folder not found.')
     else:
-        print('Folder not found.')
-
-def pushAll(cursor, conn):
-    filesToPush = []
-    os.system('cls') 
-    if os.path.isdir(f'../jsUtilizador/'):
-        print(f'Folder /jsUtilizador/ found!')
-        
-        for folder_name in os.listdir('../jsUtilizador'):
-            folder_path = os.path.join('../jsUtilizador', folder_name)
-
-            if os.path.isdir(folder_path):
-                folder_files = os.listdir(folder_path)
-
-                if len(folder_files) == 1:
-                    print(f"Found Javascript de Utilizador: '{folder_name}'")
-                    file_path = os.path.join(folder_path, folder_files[0])
-                    filesToPush.append(file_path)
-                else:
-                    print(f"Expected 1 file in '{folder_name}' but found {len(folder_files)}")
-
-        for pushFile in filesToPush:
-            with open(pushFile) as pushScript:
-                pushScriptJavascript = pushScript.read()
-                pushScriptStamp = os.path.basename(pushFile).rstrip('.js')
-                cursor.execute(f"UPDATE JSU SET JAVASCRIPT = ?, usrdata=DATEADD(DAY, DATEDIFF(DAY, 0, GETDATE()) + 1, 0), usrhora=CONVERT(TIME, GETDATE()) WHERE jsustamp = ?", (pushScriptJavascript, pushScriptStamp))
-                conn.commit()
-                  
-    else:
-        print(f"Couldn't find any Javascript de Utilizador!")
+        base_folder = '../jsUtilizador/'
+        if os.path.isdir(base_folder):
+            print(f'Folder {base_folder} found!')
+            for folder_name in os.listdir(base_folder):
+                folder_path = os.path.join(base_folder, folder_name)
+                if os.path.isdir(folder_path):
+                    folder_files = [item for item in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, item))]
+                    if len(folder_files) == 1:
+                        print(f"Found Javascript de Utilizador: '{folder_name}'")
+                        process_file(os.path.join(folder_path, folder_files[0]))
+                    else:
+                        print(f"Expected 1 file in '{folder_name}' but found {len(folder_files)}")
+        else:
+            print(f"Couldn't find any Javascript de Utilizador!")
 
 db_conn = pyodbc.connect(db_connString)
 
@@ -65,19 +54,18 @@ try:
     db_cursor = db_conn.cursor()
 
     if option == 1:
-        pushSingle(scriptTitle, db_cursor, db_conn)
+        push_files(db_cursor, db_conn, scriptTitle)
     elif option == 2:
-        pushAll(db_cursor, db_conn)
+        push_files(db_cursor, db_conn, None)
     else:
         pass
 
 except pyodbc.Error as e:
     print(f"SQL Server Error: {e}")
 
-finally:
-    if db_cursor:
-        db_cursor.close()
-    if db_conn:
-        db_conn.close()
-    if option == 1 or option == 2:
-        input('\nPress ENTER to continue...')
+if db_cursor:
+    db_cursor.close()
+if db_conn:
+    db_conn.close()
+if option == 1 or option == 2:
+    input('\nPress ENTER to continue...')
