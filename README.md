@@ -89,7 +89,7 @@ Em ambas as opções (Pull e Push) dos Scripts, existem 2 funções: fazer o ped
 >#### Caso selecione o pedido somente a um Script...
 > ser-lhe-á pedido o código do Script que inseriu no campo **Código** ao criá-lo diretamente no PHC CS Web
 > 
-> <img src="https://i.imgur.com/4LQak6V.png" style="height: 275px"><br>
+> <img src="https://i.imgur.com/4LQak6V.png" style="height: 15%"><br>
 > Seguindo o exemplo da imagem, **o código a inserir seria "teste"**
 
 #### 📥 Pull dos Scripts Web (VB.NET)
