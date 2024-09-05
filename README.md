@@ -84,17 +84,17 @@ Para enviar os Javascripts de Utilizador, é bastante similar ao Pull, podemos e
 
 ### Scripts Web (VB.NET)
 
-Em ambas as opções (Pull e Push) dos Scripts, existem 2 funções: fazer o pedido **apenas a um** Script, ou a **todos**..
+Em ambas as opções (Pull e Push) dos Scripts, existem 2 funções: fazer o pedido **apenas a um** Script, ou a **todos**.
 
 >#### Caso selecione o pedido somente a um Script...
 > ser-lhe-á pedido o código do Script que inseriu no campo **Código** ao criá-lo diretamente no PHC CS Web
 > 
-> <img src="https://i.imgur.com/4LQak6V.png" style="height: 250px"><br>
+> <img src="https://i.imgur.com/4LQak6V.png" style="height: 275px"><br>
 > Seguindo o exemplo da imagem, **o código a inserir seria "teste"**
 
 #### 📥 Pull dos Scripts Web (VB.NET)
 
-Ao receber os Scripts, os mesmos serão guardados numa pasta fora do diretório do scriptManager, chamada "**"webScriptsVB/**", onde o nome dos sub-diretórios será o código do Script e o conteúdo será o `{stamp}.vb`.
+Ao receber os Scripts, os mesmos serão guardados numa pasta fora do diretório do scriptManager, chamada **"webScriptsVB/"**, onde o nome dos sub-diretórios será o código do Script e o conteúdo será o `{stamp}.vb`.
 ```
 phcDevelopment/
 |
