@@ -1,3 +1,4 @@
+<img src="https://i.imgur.com/I0xGMiu.png" height="200px"><br>
 # PHC CS WEB FRAMEWORK SCRIPT MANAGER
 
 > Ferramenta para transformar os scripts da framework web em ficheiros locais, que podem ser editados e importados de volta à base de dados.
